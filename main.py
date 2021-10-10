@@ -1,16 +1,42 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class Main:
+
+    distance = 0
+
+    print(f'''
+    Author: Jonathan Rhoads 
+    #001891548
+    --------------------------------------------------------------------------------------------------------------------
+    
+                                            WELCOME TO THE PACKAGE DELIVERY HUB
+                                            
+                                                    Total distance: {distance}
+                                            
+                                                How can we help you today?
+                                                
+    --------------------------------------------------------------------------------------------------------------------
+    Please enter a number from the options below:
+        1. Lookup all packages at a certain time.
+        2. Exit the hub.
+        
+    ''')
+
+    selection = input()
+
+    if selection == '2':
+        print('Thank you and have a nice day!')
+        exit()
+    elif selection == '1':
+        while selection == '1':
+            time = input('\nPlease enter the time desired in the format HH:MMn\n')
+            (hour, minute) = time.split(':')
+            print(f'hour: {hour} minute: {minute}')
+
+            selection = input('Enter 1 to lookup another time or press any key to exit.')
+            if selection != '1':
+                print('Thank you and have a nice day!')
+                exit()
+    else:
+        print('Invalid input, bye bye!')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
