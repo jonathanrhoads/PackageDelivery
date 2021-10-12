@@ -14,7 +14,7 @@ class Package:
 
     def __str__(self):
         return f"Package ID: {self.id} | Address {self.address}, {self.city}, {self.state} {self.zip_code} | " \
-               f"Deadline: {self.deadline.time().strftime('%I:%M%p')} | Weight: {self.weight}"
+               f"Deadline: {self.deadline.time().strftime('%I:%M %p')} | Weight: {self.weight}"
 
     def get_id(self):
         return self.id
