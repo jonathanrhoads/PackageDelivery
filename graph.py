@@ -11,7 +11,8 @@ class Graph:
         self.edge_weights = {}
 
     def add_vertex(self, new_vertex):
-        self.adjacency_list[new_vertex] = []
+        if new_vertex not in self.adjacency_list:
+            self.adjacency_list[new_vertex] = []
 
     def add_directed_edge(self, from_vertex, to_vertex, weight=1.0):
         self.edge_weights[(from_vertex, to_vertex)] = weight

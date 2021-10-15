@@ -5,17 +5,21 @@ from hash_table import HashTable
 from package import Package
 
 with open('WGUPS Distance Table.csv') as distances:
-    line = csv.reader(distances, delimeter=',')
+    line = csv.reader(distances, delimiter=',')
     address_list = next(line)  # Creates a list of the addresses to be used as the end points of edges
     route_map = Graph()
 
     for address in line:
         # Uses the address column to add a vertex
         route_map.add_vertex(Vertex(address[0]))
+        # Adds the addresses in left column as a key with an empty list as the value.
+        route_map.add_vertex(address[0])
 
-        for distance in range(len(address)):
+        for distance in range(len(address))[1:]:
+            # Adds the address in the first row as a key with an empty list as the value.
+            route_map.add_vertex(address_list[distance])
             # Pulls point A from the line of CSV, point B from first row, and weight from where the two addresses meet
-            route_map.add_undirected_edge(address[0], address_list[distance], float(address[distance + 1]))
+            route_map.add_undirected_edge(address[0], address_list[distance], float(address[distance]))
 
 with open('WGUPS Package File.csv') as packages:
     package = csv.reader(packages, delimiter=',')

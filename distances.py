@@ -31,7 +31,6 @@ def shortest_path(package_list, start):
                 packages.remove(closest)
     return closest
 
-
 # Dijkstra's
 # def shortest_path(truck_list, start):
 #     unvisited_stops = []
