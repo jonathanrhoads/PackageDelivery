@@ -13,7 +13,15 @@ class Package:
         self.time = time
 
     def __str__(self):
-        return f"Package ID: {self.id} | Address: {self.address}, {self.city}, {self.state} {self.zip_code} | " \
+        '''
+        Creates a format to print the package. If the package has been delivered it will add the time.
+        '''
+        if self.status in ['at the hub', 'Delayed', 'en route']:
+            return f"Package ID: {self.id} | Address: {self.address}, {self.city}, {self.state} {self.zip_code} | " \
+               f"Deadline: {self.deadline.time().strftime('%I:%M %p')} | Weight: {self.weight} | " \
+               f"Status: {self.status}"
+        else:
+            return f"Package ID: {self.id} | Address: {self.address}, {self.city}, {self.state} {self.zip_code} | " \
                f"Deadline: {self.deadline.time().strftime('%I:%M %p')} | Weight: {self.weight} | " \
                f"Status: {self.status} | {self.time.strftime('%I:%M %p')}"
 

@@ -4,6 +4,11 @@ from graph import Graph, Vertex
 from hash_table import HashTable
 from package import Package
 
+'''
+Opens the distance table csv file then adds the addresses as vertexes and grabs the distances between the 
+vertexes from the csv and puts sets them as values in the Graph's edge weights map with the addresses as keys.
+O(n^2)
+'''
 with open('WGUPS Distance Table.csv') as distances:
     line = csv.reader(distances, delimiter=',')
     address_list = next(line)  # Creates a list of the addresses to be used as the end points of edges
@@ -21,6 +26,12 @@ with open('WGUPS Distance Table.csv') as distances:
             # Pulls point A from the line of CSV, point B from first row, and weight from where the two addresses meet
             route_map.add_undirected_edge(address[0], address_list[distance], float(address[distance]))
 
+
+'''
+Opens the package table csv file then creates a Hashtable to store the packages in. The package will also receive a
+status and time property to be used later on.
+O(n)
+'''
 with open('WGUPS Package File.csv') as packages:
     package = csv.reader(packages, delimiter=',')
     next(package)
