@@ -51,7 +51,7 @@ with open('WGUPS Package File.csv') as packages:
             time = datetime.now().replace(hour=9, minute=5)
 
         if pId == 9:
-            pAddress = '410 S State St.'
+            pAddress = '410 S State St'
             pCity = 'Salt Lake City'
             pState = 'UT'
             pZip = '84111'

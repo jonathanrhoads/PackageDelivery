@@ -42,7 +42,8 @@ class HashTable:
         for kv in bucket_list:
             if kv[0] == key:
                 return kv[1]
-            return None
+
+        return None
 
     # Iterates through the bucket list and if a matching key is found then the key and corresponding value will be
     # removed.

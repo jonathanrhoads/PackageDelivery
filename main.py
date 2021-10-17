@@ -1,44 +1,12 @@
-from distances import shortest_path
+from distances import deliver_packages
 from graph import Graph, Vertex
 from import_data import package_table, route_map
 from truck import Truck
 
 
-def is_during_business_hours(self, hour, minute):
-    if (self <= 8 and minute <= 0) or (self > 21 and minute > 0):
-        return False
-    else:
-        return True
-
-
-def deliver_packages(truck, route, hour, minute):
-
-    package_route = ['4001 South 700 East']
-    stops = list(route.adjacency_list.keys)
-
-    while stops not in package_route:
-        package_route.append(shortest_path(stops, package_route[len(package_route - 1)]))
-
-    for i in range(1, len(package_route)):
-        truck.distance_travelled += route_map.edge_weights[(package_route[i - 1], package_route[i])]
-
-    for pId in truck.packages:
-        package = package_table[pId]
-
-        # Finds where package is at during a specific time
-
-        package.set_status()
-        package.set_time(truck.st)
-
-
+def print_packages():
     for i in range(1, 41):
         print(package_table.search(i))
-
-    # truck_list = truck1_packages + truck2_packages + truck3_packages
-    # truck_list.sort()
-    #
-    # for i in truck_list:
-    #     print(f'{i}')
 
 
 class Main:
@@ -61,17 +29,13 @@ class Main:
     for p in truck3.packages:
         route3.add_vertex(Vertex(p))
 
-    distance = truck1.distance_travelled + truck2.distance_travelled + truck3.distance_travelled
-
     print(f'''
     Author: Jonathan Rhoads 
     #001891548
     --------------------------------------------------------------------------------------------------------------------
     
                                             WELCOME TO THE PACKAGE DELIVERY HUB
-                                            
-                                                    Total distance: {distance}
-                                            
+       
                                             Hours of Operation: 8:00 AM - 9:00 PM
                                             
                                                 How can we help you today?
@@ -79,8 +43,7 @@ class Main:
     --------------------------------------------------------------------------------------------------------------------
     Please enter a number from the options below:
         1. Lookup all packages at a certain time.
-        2. Exit the hub.
-    ''')
+        2. Exit the hub.    ''')
 
     selection = input()
 
@@ -89,16 +52,23 @@ class Main:
         exit()
     elif selection == '1':
         while selection == '1':
-            time = input('\nPlease enter the time desired in the format HH:MM\n')
-            (hour, minute) = time.split(':')
+            time = input('\nPlease enter the time desired in the format HH:MM (Use military time i.e. 13:00 for 1 PM)')
+            (hour, minute) = [int(i) for i in time.split(':')]
 
-            if is_during_business_hours(hour, minute):
-                print(f'Displaying package details at {hour}:{minute}')
-                deliver_packages(truck1, route1, hour, minute)
-                deliver_packages(truck2, route2, hour, minute)
+            # if is_during_business_hours(hour, minute):
+
+            deliver_packages(truck1, route1, hour, minute)
+            deliver_packages(truck2, route2, hour, minute)
+
+            if hour > 10 or (hour == 10 and minute >= 20):
                 deliver_packages(truck3, route3, hour, minute)
 
-            selection = input('Enter 1 to lookup another time or press any key to exit.')
+            print(f'Displaying package details at {hour}:{minute}')
+            print_packages()
+            mileage = truck1.distance_travelled + truck2.distance_travelled + truck3.distance_travelled
+            print(f'\nTotal mileage for all trucks is {mileage}')
+
+            selection = input('\n\nEnter 1 to lookup another time or press any key to exit.')
             if selection != '1':
                 print('Thank you and have a nice day!')
                 exit()
